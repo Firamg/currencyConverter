@@ -12,9 +12,11 @@ let canvas;
 
 //FUNTION GET CURRENCY
 
+
+
 const getCurrency = async(currency)=>{
     try{
-        const res=await fetch(`${baseURL}${currency}`)
+        const res=await fetch(`https://mindicador.cl/api/${currency}`)
         const data=await res.json();
         console.log(data)
         return data;
@@ -31,9 +33,9 @@ const getCurrency = async(currency)=>{
 const convertor = async(currency)=>{
     const datos = await getCurrency(currency);
     const currencyValue=datos.serie[0].valor;
-    const convertor=+input.value/+currencyValue;
+    const convertor=input.value/currencyValue;
 
-    result.textContent=convertor.toFixed(4);
+    result.innerHTML=convertor.toFixed(4);
     
 }
 
@@ -44,7 +46,7 @@ const configGrafica = (currencies)=>{
     //CREACIÓN DE VARIABLES
 
     const type= 'line';
-    const title= 'Currencies';
+    const title= 'Currency';
     const bgColor='blue'
     const arrayTenDays= currencies.serie.slice(0,10);
     const dates=arrayTenDays.map((x)=>{
